@@ -36,8 +36,10 @@ export async function sendVerificationEmail(email: string, token: string) {
 }
 
 export async function sendPasswordResetEmail(email: string, token: string) {
+  const url = `${process.env.NEXTAUTH_URL}/reset-password/${token}`;
+  console.log(`[PASSWORD-RESET] ${email} → ${url}`);
+
   try {
-    const url = `${process.env.NEXTAUTH_URL}/reset-password/${token}`;
     const html = await render(<PasswordResetEmail url={url} />);
 
     await transporter.sendMail({
