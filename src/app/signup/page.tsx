@@ -1,11 +1,10 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
-  const router = useRouter();
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -34,11 +33,27 @@ export default function SignupPage() {
         return;
       }
 
-      router.push("/login");
+      setError("");
+      setSuccess(true);
     } catch (err) {
       console.error("Signup fetch error:", err);
       setError("Network error — check console");
     }
+  }
+
+  if (success) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4">
+        <h1 className="text-xl font-bold">Check your email</h1>
+        <p className="text-gray-500 text-center max-w-sm">
+          We sent a verification link to your email. Click the link to activate
+          your account before signing in.
+        </p>
+        <a href="/login" className="text-sm underline">
+          Go to sign in
+        </a>
+      </div>
+    );
   }
 
   return (

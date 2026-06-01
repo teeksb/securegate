@@ -22,6 +22,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user) return null;
 
+        if (!user.emailVerified) return null;
+
         const isValid = await compare(password, user.password);
         if (!isValid) return null;
 
@@ -35,10 +37,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    jwt: ({ token, user }) => {
+    jwt: ({ token, user, trigger }) => {
       if (user) {
         token.id = user.id!;
         token.emailVerified = user.emailVerified;
+      }
+      if (trigger === "update") {
+        return { ...token, ...user };
       }
       return token;
     },

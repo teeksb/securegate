@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { hash } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { signUpSchema } from "@/lib/validations/auth";
+import { generateToken } from "@/lib/tokens";
+import { sendVerificationEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
-  console.log(">>> Signup route HIT");
   try {
     const body = await req.json();
     const parsed = signUpSchema.safeParse(body);
@@ -36,6 +37,21 @@ export async function POST(req: NextRequest) {
         emailVerified: null,
       },
     });
+
+    const token = generateToken();
+    const expires = new Date(Date.now() + 15 * 60 * 1000);
+
+    await prisma.verificationToken.create({
+      data: {
+        identifier: email,
+        token,
+        expires,
+      },
+    });
+
+    sendVerificationEmail(email, token).catch((err) =>
+      console.error("Verification email send failed:", err)
+    );
 
     return NextResponse.json(
       { success: true },
