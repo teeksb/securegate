@@ -23,7 +23,11 @@ export default function LoginPage() {
     });
 
     if (result?.error) {
-      setError("Invalid email or password");
+      if (result.code === "RateLimit") {
+        setError("Too many attempts, your account has been blocked");
+      } else {
+        setError("Invalid email or password");
+      }
     } else {
       router.push("/dashboard");
     }

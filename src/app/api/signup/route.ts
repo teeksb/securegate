@@ -30,40 +30,25 @@ export async function POST(req: NextRequest) {
     const hashedPassword = await hash(password, 12);
 
     await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-        emailVerified: null,
-      },
+      data: { name, email, password: hashedPassword, emailVerified: null },
     });
 
     const token = generateToken();
     const expires = new Date(Date.now() + 15 * 60 * 1000);
 
     await prisma.verificationToken.create({
-      data: {
-        identifier: email,
-        token,
-        expires,
-      },
+      data: { identifier: email, token, expires },
     });
 
     sendVerificationEmail(email, token).catch((err) =>
       console.error("Verification email send failed:", err)
     );
 
-    return NextResponse.json(
-      { success: true },
-      { status: 201 }
-    );
+    return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
     console.error("Signup error:", error);
     return NextResponse.json(
-      {
-        success: false,
-        message: error instanceof Error ? error.message : "Something went wrong",
-      },
+      { success: false, message: "Something went wrong" },
       { status: 500 }
     );
   }

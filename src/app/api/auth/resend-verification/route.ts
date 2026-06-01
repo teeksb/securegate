@@ -26,7 +26,8 @@ export async function POST(req: NextRequest) {
     );
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (error) {
+    console.error("Resend verification error:", error);
     return NextResponse.json({ success: true });
   }
 }

@@ -3,17 +3,22 @@ import { prisma } from "@/lib/prisma";
 import { forgotPasswordSchema } from "@/lib/validations/auth";
 import { generateToken } from "@/lib/tokens";
 import { sendPasswordResetEmail } from "@/lib/email";
+import { forgotPasswordLimiter, getIp } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getIp(req);
+    await forgotPasswordLimiter.limit(ip);
+
     const body = await req.json();
     const parsed = forgotPasswordSchema.safeParse(body);
 
     if (!parsed.success) {
-      return NextResponse.json(
-        { success: false, message: "Invalid email" },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        success: true,
+        message:
+          "If an account exists with that email, a reset link has been sent.",
+      });
     }
 
     const { email } = parsed.data;
@@ -24,9 +29,7 @@ export async function POST(req: NextRequest) {
       const token = generateToken();
       const expires = new Date(Date.now() + 60 * 60 * 1000);
 
-      await prisma.passwordResetToken.deleteMany({
-        where: { email },
-      });
+      await prisma.passwordResetToken.deleteMany({ where: { email } });
 
       await prisma.passwordResetToken.create({
         data: { email, token, expires },
@@ -44,7 +47,8 @@ export async function POST(req: NextRequest) {
       message:
         "If an account exists with that email, a reset link has been sent.",
     });
-  } catch {
+  } catch (error) {
+    console.error("Forgot-password error:", error);
     return NextResponse.json({
       success: true,
       message:
