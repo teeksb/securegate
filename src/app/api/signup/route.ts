@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { signUpSchema } from "@/lib/validations/auth";
 
 export async function POST(req: NextRequest) {
+  console.log(">>> Signup route HIT");
   try {
     const body = await req.json();
     const parsed = signUpSchema.safeParse(body);
@@ -40,9 +41,13 @@ export async function POST(req: NextRequest) {
       { success: true },
       { status: 201 }
     );
-  } catch {
+  } catch (error) {
+    console.error("Signup error:", error);
     return NextResponse.json(
-      { success: false, message: "Something went wrong" },
+      {
+        success: false,
+        message: error instanceof Error ? error.message : "Something went wrong",
+      },
       { status: 500 }
     );
   }

@@ -11,27 +11,34 @@ export default function SignupPage() {
     e.preventDefault();
     setError("");
 
-    const formData = new FormData(e.currentTarget);
-    const body = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-    };
+    try {
+      const formData = new FormData(e.currentTarget);
+      const body = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        password: formData.get("password"),
+      };
 
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+      const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (!res.ok) {
-      setError(data.errors?.password?.[0] ?? data.message ?? "Signup failed");
-      return;
+      if (!res.ok) {
+        const errArr = Object.values(data.errors ?? {}) as string[][];
+        const firstError = errArr.find(Boolean)?.[0] ?? data.message ?? "Signup failed";
+        setError(firstError);
+        return;
+      }
+
+      router.push("/login");
+    } catch (err) {
+      console.error("Signup fetch error:", err);
+      setError("Network error — check console");
     }
-
-    router.push("/login");
   }
 
   return (
