@@ -13,6 +13,7 @@ const transporter = nodemailer.createTransport({
       }
     : undefined,
   secure: process.env.SMTP_SECURE === "true",
+  requireTLS: true,
 });
 
 const from = process.env.SMTP_FROM || "noreply@localhost";
