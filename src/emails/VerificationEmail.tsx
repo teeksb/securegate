@@ -39,7 +39,7 @@ export default function VerificationEmail({ url }: VerificationEmailProps) {
             </Link>
           </Section>
           <Text style={{ color: "#666", fontSize: 14 }}>
-            If the button doesn't work, copy and paste this URL into your
+            If the button doesn&apos;t work, copy and paste this URL into your
             browser:
           </Text>
           <Text style={{ color: "#666", fontSize: 12, wordBreak: "break-all" }}>

@@ -42,10 +42,10 @@ export default function PasswordResetEmail({ url }: PasswordResetEmailProps) {
             </Link>
           </Section>
           <Text style={{ color: "#666", fontSize: 14 }}>
-            If you didn't request this, ignore this email.
+            If you didn&apos;t request this, ignore this email.
           </Text>
           <Text style={{ color: "#666", fontSize: 14 }}>
-            If the button doesn't work, copy and paste this URL:
+            If the button doesn&apos;t work, copy and paste this URL:
           </Text>
           <Text style={{ color: "#666", fontSize: 12, wordBreak: "break-all" }}>
             {url}
