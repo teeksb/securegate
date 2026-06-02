@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 const from = process.env.SMTP_FROM || "noreply@localhost";
 
 export async function sendVerificationEmail(email: string, token: string) {
-  const url = `${process.env.NEXTAUTH_URL}/verify-email/${token}`;
+  const url = `${process.env.NEXTAUTH_URL}/auth?mode=verify-email&token=${token}`;
   console.log(`[VERIFICATION] ${email} → ${url}`);
 
   try {
@@ -36,7 +36,7 @@ export async function sendVerificationEmail(email: string, token: string) {
 }
 
 export async function sendPasswordResetEmail(email: string, token: string) {
-  const url = `${process.env.NEXTAUTH_URL}/reset-password/${token}`;
+  const url = `${process.env.NEXTAUTH_URL}/auth?mode=reset-password&token=${token}`;
   console.log(`[PASSWORD-RESET] ${email} → ${url}`);
 
   try {
