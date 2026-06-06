@@ -1,5 +1,4 @@
 import { Resend } from "resend";
-import { render } from "@react-email/render";
 import VerificationEmail from "@/emails/VerificationEmail";
 import PasswordResetEmail from "@/emails/PasswordResetEmail";
 
