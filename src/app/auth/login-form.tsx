@@ -73,7 +73,7 @@ export function LoginForm() {
         noValidate
         className="flex w-full flex-col gap-5 rounded-xl bg-white p-8"
       >
-        <h1 className="text-2xl font-bold text-gray-900">Sign in</h1>
+        <h1 className="text-2xl font-bold text-center text-gray-900">Sign in</h1>
 
         {success && (
           <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700" role="status">

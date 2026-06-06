@@ -109,7 +109,7 @@ function InvalidLink({
 }) {
   return (
     <div className="flex w-full max-w-md flex-col items-center gap-4 rounded-xl bg-white p-8 text-center">
-      <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+      <h1 className="text-2xl font-bold text-center text-gray-900">{title}</h1>
       <p className="text-gray-500">{message}</p>
       {children}
     </div>

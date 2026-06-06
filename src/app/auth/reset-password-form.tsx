@@ -53,7 +53,7 @@ export function ResetPasswordForm({ token }: Props) {
       onSubmit={handleSubmit}
       className="flex w-full max-w-md flex-col gap-5 rounded-xl bg-white p-8"
     >
-      <h1 className="text-2xl font-bold text-gray-900">Reset password</h1>
+      <h1 className="text-2xl font-bold text-center text-gray-900">Reset password</h1>
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">

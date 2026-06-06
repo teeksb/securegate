@@ -44,7 +44,7 @@ export function ForgotPasswordForm() {
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100">
           <span className="text-xl text-emerald-600">✓</span>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900">Check your email</h1>
+        <h1 className="text-2xl font-bold text-center text-gray-900">Check your email</h1>
         <p className="text-gray-500">If an account exists with that email, a reset link has been sent.</p>
         <a href="/auth?mode=login" className="text-sm font-medium text-indigo-600 hover:text-indigo-700 hover:underline">
           Back to sign in
@@ -58,7 +58,7 @@ export function ForgotPasswordForm() {
       onSubmit={handleSubmit}
       className="flex w-full max-w-md flex-col gap-5 rounded-xl bg-white p-8"
     >
-      <h1 className="text-2xl font-bold text-gray-900">Forgot password</h1>
+      <h1 className="text-2xl font-bold text-center text-gray-900">Forgot password</h1>
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">

@@ -12,7 +12,7 @@ export default async function DashboardPage() {
     <div className="flex min-h-screen items-center justify-center">
       <div className="flex w-full max-w-md flex-col gap-6 rounded-xl bg-white p-8">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+          <h1 className="text-2xl font-bold text-center text-gray-900">Dashboard</h1>
           <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700">
             <span>Verified</span>
             <span>✓</span>

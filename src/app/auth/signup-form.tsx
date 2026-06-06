@@ -81,7 +81,7 @@ export function SignupForm() {
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100">
           <span className="text-xl text-emerald-600">✓</span>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900">Check your email</h1>
+        <h1 className="text-2xl font-bold text-center text-gray-900">Check your email</h1>
         <p className="text-gray-500">
           We sent a verification link to your email. Click the link to activate your account before signing in.
         </p>
@@ -98,7 +98,7 @@ export function SignupForm() {
       noValidate
       className="flex w-full max-w-md flex-col gap-5 rounded-xl bg-white p-8"
     >
-      <h1 className="text-2xl font-bold text-gray-900">Create your account</h1>
+      <h1 className="text-2xl font-bold text-center text-gray-900">Create your account</h1>
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
